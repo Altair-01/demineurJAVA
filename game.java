@@ -33,25 +33,24 @@ public class game extends JFrame {
             xPoint = rand.nextInt(size);
             yPoint = rand.nextInt(size);
             if (zonemine[xPoint][yPoint]!=-1) {
-                zonemine[xPoint][yPoint]=-1;  // -1 represents bomb
+                zonemine[xPoint][yPoint]=-1;  // -1 representes bombe
                 count++;
             }
         }
         
-        // Fill boxes adjacent to mines with numbers
         for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             if (zonemine[i][j]==-1) {
                     for (int k = -1; k <= 1 ; k++) {
                     for (int l = -1; l <= 1; l++) {
-                        // In boundary cases
+
                         try {
                             if (zonemine[i+k][j+l]!=-1) {
                                 zonemine[i+k][j+l] += 1;
                             }
                         }
                         catch (Exception e) {
-                            // Do nothing
+
                         }
                     }
                     }
@@ -62,7 +61,7 @@ public class game extends JFrame {
 
     public void main(game frame, int size) {
 
-        // Some instantiation
+
         Interface intergraph = new Interface(frame);
         MyMouseListener myMouseListener = new MyMouseListener(frame);
         JPanel mainPanel = new JPanel();
@@ -147,23 +146,23 @@ public class game extends JFrame {
             }
         }
 
-        // Both panels done
+
 
         mainPanel.add(panel1);
         mainPanel.add(panel2);
         frame.setContentPane(mainPanel);
         this.setVisible(true);
         
-        // Algorithms
+
         setMines(size);
 
-        // The timer
+        // Le timer
         timeThread timer = new timeThread(this);
         timer.start();
 
     }
 
-    // Increase timer every second
+
     public void timer() {
         String[] time = this.timeLabel.getText().split(" ");
         int time0 = Integer.parseInt(time[0]);
@@ -171,7 +170,7 @@ public class game extends JFrame {
         this.timeLabel.setText(Integer.toString(time0) + " s");
     }
 
-    // Change icon upon clicking smile Button
+
     public void changeSmile() {
         if (smiling) {
             smiling=false;
@@ -182,7 +181,7 @@ public class game extends JFrame {
         }
     }
 
-    // If a block is right clicked
+    //click droit
     public void cliqueDroit(int x, int y) {
         if(!revele[x][y]) {
             if (marque[x][y]) {
@@ -205,12 +204,12 @@ public class game extends JFrame {
     }
 
     private boolean gameWon() {
-        // noOfRevealed + noOfMines must be equal to the total no. of boxes
+
         return (this.caserevele) ==
                         (Math.pow(this.zonemine.length, 2) - this.nbDeMines);
     }
 
-    // When a block is clicked
+    //Lors d'un click
     public void clique(int x, int y) {
         if(!revele[x][y] && !marque[x][y]) {
             revele[x][y] = true;
@@ -248,16 +247,16 @@ public class game extends JFrame {
                         }
                 else
                 System.exit(0);
-                    } // Winning condition
+                    } // condition de victoire
 
-                    // Else simply recurse around
+                    // Autres
                     for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         try {
                             clique(x + i, y + j);
                         }
                         catch (Exception e3) {
-                            // Do nothing
+
                         }
                     }
                     }
@@ -285,18 +284,18 @@ public class game extends JFrame {
         
     }
 
-    private JButton[][] buttons;  // The Grid buttons
+    private JButton[][] buttons;  // Les boutons de la grille
     private JPanel panel1;  // Top panel containing labels and a smile button
-    private JPanel panel2;  // Bottom panel containing the grid of buttons
-    private JLabel flagsLabel;  // Number of flags remaining to be used
-    private JButton smileButton;  // The smile button ;-)
-    private JLabel timeLabel;  // Label showing time elapsed
+    private JPanel panel2;  // Panneau supérieur contenant des étiquettes et un bouton sourire
+    private JLabel flagsLabel;  // Le nombre de drapeau (flag) que l'on peut utiliser
+    private JButton smileButton;  // bouton smile
+    private JLabel timeLabel;  // Label pour le timer
+    private int nbDeMines = 0;  // Le nombre de mines sur le terrain
+    private int[][] zonemine;  // Tableau 2D contenant des informations pour chaque bloc
+    private boolean[][] revele;  // Si le bouton a été cliqué
+    private int caserevele;  // Combien ?
+    private boolean[][] marque;  // marqué ou pas ?
 
-    private int nbDeMines = 0;  // The no. of mines in the field
-    private int[][] zonemine;  // 2-D array containing info for each block
-    private boolean[][] revele;  // Whether the button has been clicked
-    private int caserevele;  // How many of them?
-    private boolean[][] marque;  // Or the got flagged?
     
     private Image smiley;
     private Image newSmiley;
@@ -307,7 +306,7 @@ public class game extends JFrame {
     private Image dead;
     private Image newDead;
     
-    private boolean smiling;  // Is he? Or is he not?
+    private boolean smiling;  // oui ou non
 
     public static final int MAGIC_SIZE = 30;
 
